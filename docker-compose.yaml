@@ -1,5 +1,6 @@
 version: "2"
 services:
+
   # Collector
   otel-collector:
     build:
@@ -7,13 +8,13 @@ services:
       context: ./images/otel-collector
     restart: always
     environment:
-      - ELASTIC_APM_SECRET_TOKEN=****
-      - ELASTIC_APM_SERVER_ENDPOINT=https://*****.apm.us-central1.gcp.cloud.es.io:443
+        ELASTIC_APM_SECRET_TOKEN: ${ELASTIC_APM_SECRET_TOKEN}
+        ELASTIC_APM_SERVER_ENDPOINT: ${ELASTIC_APM_SERVER_ENDPOINT}
     ports:
-      - "1888:1888" # pprof extension
+      - "1888:1888"   # pprof extension
       - "13133:13133" # health_check extension
-      - "4317:4317" # OTLP gRPC receiver
-      - "4318:4318" # OTLP gRPC receiver
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP gRPC receiver
       - "55679:55679" # zpages extension
 
   dotnet-api:
@@ -22,7 +23,9 @@ services:
       context: ./images/dotnet-api
     restart: always
     environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      # https://github.com/open-telemetry/opentelemetry-dotnet/issues/4115
+      # prefer HTTP for now since it has better retry mechanisms
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
     ports:
       - "8080:8080"
     depends_on:

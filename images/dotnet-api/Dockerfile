@@ -1,4 +1,4 @@
-ARG OTEL_VERSION=1.0.0-alpha.4
+ARG OTEL_VERSION=1.0.0-alpha.5
 FROM mcr.microsoft.com/dotnet/runtime-deps:8.0-alpine AS base
 WORKDIR /app
 EXPOSE 80
