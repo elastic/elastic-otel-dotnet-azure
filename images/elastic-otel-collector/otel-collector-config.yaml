@@ -1,0 +1,37 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+processors:
+  batch:
+
+extensions:
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 700
+    spike_limit_mib: 180
+
+exporters:
+  debug:
+    verbosity: basic
+  otlp/elastic:
+    # Elastic APM server https endpoint without the "https://" prefix
+    endpoint: "${env:ELASTIC_APM_SERVER_ENDPOINT}"
+    headers:
+      # Elastic APM Server secret token
+      Authorization: "Bearer ${env:ELASTIC_APM_SECRET_TOKEN}"
+
+service:
+  extensions: [memory_limiter]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [debug, otlp/elastic]
+    metrics:
+      receivers: [otlp]
+      exporters: [debug, otlp/elastic]
+    logs:
+      receivers: [otlp]
+      exporters: [debug, otlp/elastic]
