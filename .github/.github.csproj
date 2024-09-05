@@ -3,5 +3,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>False</IsPackable>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="actions\" />
+  </ItemGroup>
 
 </Project>
