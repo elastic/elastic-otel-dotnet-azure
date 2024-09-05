@@ -13,6 +13,7 @@ permissions:
 env:
   JOB_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
   SLACK_CHANNEL: "#apm-agent-dotnet"
+  IMAGE_NAME: "elastic-otel-collector-azure"
 
 jobs:
   release:
@@ -21,7 +22,7 @@ jobs:
       contents: write
       id-token: write
     env:
-      DOCKER_IMAGE_NAME: "docker.elastic.co/observability/elastic-otel-collector-azure"
+      DOCKER_IMAGE_NAME: "docker.elastic.co/observability/${{ env.IMAGE_NAME }}"
     steps:
       - uses: actions/checkout@v4
       - name: Bootstrap Action Workspace
@@ -51,8 +52,8 @@ jobs:
             # "edge" Docker tag on git push to default branch
             type=edge
           labels: |
-            org.opencontainers.image.title=elastic-otel-collector-azure
-            org.opencontainers.image.description=Elastic Distribution of OpenTelemetry packaged for Azure Sidecar Containers
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
+            org.opencontainers.image.description=Elastic Distribution of OpenTelemetry Collector packaged for Azure Sidecar Containers
             org.opencontainers.image.vendor=Elastic
 
       - name: Build and Push Profiler Docker Image
