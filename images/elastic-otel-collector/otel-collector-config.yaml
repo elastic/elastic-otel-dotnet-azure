@@ -5,11 +5,13 @@ receivers:
       http:
 
 processors:
-  # not supported in 8.15
-  #memory_limiter:
-  #  check_interval: 1s
-  #  limit_mib: 2000
   batch:
+
+extensions:
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 700
+    spike_limit_mib: 180
 
 exporters:
   debug:
@@ -22,6 +24,7 @@ exporters:
       Authorization: "Bearer ${env:ELASTIC_APM_SECRET_TOKEN}"
 
 service:
+  extensions: [memory_limiter]
   pipelines:
     traces:
       receivers: [otlp]
