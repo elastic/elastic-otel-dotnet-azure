@@ -28,9 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Bootstrap Action Workspace
+        id: bootstrap
+        uses: ./.github/actions/bootstrap
 
-      - run: echo 'command for linting'
-
-      - run: echo 'command for building'
-
-      - run: echo 'command for testing'
