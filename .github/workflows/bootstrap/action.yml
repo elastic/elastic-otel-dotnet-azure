@@ -1,0 +1,39 @@
+---
+name: Bootstrap Checkout
+description: Ensures all actions bootstrap the same
+
+outputs:
+  full-version:
+    description: "The current full version number"
+    value: ${{ steps.dotnet.outputs.full-version }}
+  major-version:
+    description: "The current major version number, semver"
+    value: ${{ steps.dotnet.outputs.major-version }}
+    
+runs:
+  using: "composite"
+  steps:
+    # Ensure we fetch all tags
+    - shell: bash
+      run: |
+        git fetch --prune --unshallow --tags
+        git tag --list
+        
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: ./global.json
+
+    - id: dotnet
+      shell: bash
+      run: |
+        dotnet --list-sdks
+        dotnet tool restore
+        AGENT_VERSION=$(dotnet minver -t=v -p=canary.0 -v=e)
+        echo "Version Number: ${AGENT_VERSION}"
+        echo "AGENT_VERSION=${AGENT_VERSION}" >> $GITHUB_ENV
+        echo "full-version=${AGENT_VERSION}" >> $GITHUB_OUTPUT
+        echo "major-version=$(echo ${AGENT_VERSION} | cut -d"." -f1)" >> $GITHUB_OUTPUT
+
+    # Setup git config
+    - uses: elastic/apm-pipeline-library/.github/actions/setup-git@current
