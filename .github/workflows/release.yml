@@ -77,7 +77,7 @@ jobs:
           push-to-registry: true
 
       - if: ${{ success() && github.event_name == 'release' }}
-        uses: elastic/oblt-actions/slack/send@v1.12.1
+        uses: elastic/oblt-actions/slack/send@v1
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ env.SLACK_CHANNEL }}
@@ -87,7 +87,7 @@ jobs:
             Release URL: (<https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}|${{ github.ref_name }}>)
 
       - if: ${{ failure() && github.event_name == 'release' }}
-        uses: elastic/oblt-actions/slack/send@v1.12.1
+        uses: elastic/oblt-actions/slack/send@v1
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ env.SLACK_CHANNEL }}
