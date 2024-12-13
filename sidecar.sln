@@ -19,8 +19,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{2E7D77CE
 		Directory.Build.props = Directory.Build.props
 		azure.yaml = azure.yaml
 		docker-compose.yaml = docker-compose.yaml
-		LICENSE.md = LICENSE.md
 		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = ".github", ".github\.github.csproj", "{E8DA3A4E-21E9-4A48-A496-DAE348E8CC3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elastic-otel-collector-azure", "elastic-otel-collector-azure", "{5AE24FF7-127D-4DAB-B878-50474CB05ACA}"
+	ProjectSection(SolutionItems) = preProject
+		images\elastic-otel-collector-azure\Dockerfile = images\elastic-otel-collector-azure\Dockerfile
+		images\elastic-otel-collector-azure\otel-collector-config.yaml = images\elastic-otel-collector-azure\otel-collector-config.yaml
 	EndProjectSection
 EndProject
 Global
@@ -33,9 +40,14 @@ Global
 		{FEE15C94-4ACE-46F1-9483-4F7A44197852}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEE15C94-4ACE-46F1-9483-4F7A44197852}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEE15C94-4ACE-46F1-9483-4F7A44197852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8DA3A4E-21E9-4A48-A496-DAE348E8CC3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8DA3A4E-21E9-4A48-A496-DAE348E8CC3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8DA3A4E-21E9-4A48-A496-DAE348E8CC3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8DA3A4E-21E9-4A48-A496-DAE348E8CC3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FEE15C94-4ACE-46F1-9483-4F7A44197852} = {5ABF4D8F-D845-4BF7-B130-363D046470EF}
 		{5EB6BBD8-7390-4530-B63C-A5AE43F6B25B} = {5ABF4D8F-D845-4BF7-B130-363D046470EF}
+		{5AE24FF7-127D-4DAB-B878-50474CB05ACA} = {5ABF4D8F-D845-4BF7-B130-363D046470EF}
 	EndGlobalSection
 EndGlobal
